@@ -94,7 +94,7 @@ contract BaseStrategy is SetterContract, StrategyEvents {
         uint256 shareAmount,
         uint256 minimumAssets,
         address to
-    ) public {
+    ) public onlyOwner(this.selector){
         if (!assetSupported(withdrawAsset)) {
             revert BaseStrategy__Asset_Not_Supported();
         }
