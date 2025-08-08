@@ -22,17 +22,12 @@ abstract contract SetterContract {
     IBoring public BoringVault;
     IAccountant public Account;
 
-    address public owner;
 
-    constructor() {
-        owner = msg.sender;
-
-    }
 
     /**
      * @notice Only authorized personnel can update these addresses
      */
-    function setTellerAddress(address _newTellerAddress, address _boringVault, address _accountant, address _permisionAddress) external onlyOwner(this.selector) {
+    function setTellerAddress(address _newTellerAddress, address _boringVault, address _accountant, address _permisionAddress) external onlyOwnerWithPermission(bytes4(keccak256("setTellerAddress(address,address,address,address)"))) {
         NEST_TELLER_ADDRESS = _newTellerAddress;
         BORING_VAULT_ADDRESS = _boringVault;
         ACCOUNT_ADDRESS = _accountant;
@@ -46,8 +41,8 @@ abstract contract SetterContract {
     /**
      * @notice Restrict to owner only
      */
-    modifier onlyOwner(bytes32 _functionSelector) {
-        require(IPermissionManager(PERMISSION_ADDRESS).hasPermissions(msg.sender, _functionSelector););
+    modifier onlyOwnerWithPermission(bytes4 _functionSelector) {
+        require(IPermissionManager(PERMISSION_ADDRESS).hasPermissions(msg.sender, _functionSelector), "Unauthorized");
         _;
     }
 }

@@ -3,6 +3,8 @@ pragma solidity ^0.8.26;
 
 import {SetterContract} from "./SetterContract.sol";
 import {StrategyEvents} from "./StrategyEvents.sol";
+import {StrategyErrors} from "./StrategyErrors.sol";
+import {BridgeData} from "./Interface/ITellerContract.sol";
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -10,12 +12,10 @@ import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 /// @title BaseStrategy - A base strategy contract interacting with the Nest Teller for deposits and withdrawals
 /// @author 
 /// @notice Handles deposits to and withdrawals from a vault strategy, manages accounting state, and previews profits
-contract BaseStrategy is SetterContract, StrategyEvents {
+contract BaseStrategy is SetterContract, StrategyEvents, StrategyErrors {
     using SafeERC20 for IERC20;
 
-    ///////////// Custom Errors //////////////
-    error BaseStrategy__Asset_Not_Supported();
-    error BaseStrategy__Underflow();
+
 
     //////// Storage Variables ////////
 
@@ -94,7 +94,7 @@ contract BaseStrategy is SetterContract, StrategyEvents {
         uint256 shareAmount,
         uint256 minimumAssets,
         address to
-    ) public onlyOwner(this.selector){
+    ) public onlyOwnerWithPermission(bytes4(keccak256("WithdrawFromTeller(address,uint256,uint256,address)"))){
         if (!assetSupported(withdrawAsset)) {
             revert BaseStrategy__Asset_Not_Supported();
         }
@@ -110,7 +110,18 @@ contract BaseStrategy is SetterContract, StrategyEvents {
             to
         );
 
-        emit WithdrawComplete(shareAmount, assetOut, minimumAssets, to);
+        emit WithdrawComplete(int256(shareAmount), assetOut, minimumAssets, to);
+    }
+
+
+    function bridgeAssetsToPully(BridgeData calldata data, uint256 shareamount) public  onlyOwnerWithPermission(bytes4(keccak256("bridgeAssetsToPully((uint32,address,address,uint64,bytes),uint256)"))) {
+        //chack the cost to send mesage
+
+        uint256 fee = TellerInterface.previewFee(shareamount,data);
+
+
+        //sends enough native tokens to cover fee
+      bytes32 messageId =  TellerInterface.bridge(shareamount, data);   
     }
 
     // -------- View Functions -------- //
@@ -128,7 +139,7 @@ contract BaseStrategy is SetterContract, StrategyEvents {
      * @notice Preview the total current value of the shares held in the Teller
      * @return assetsOut Estimated value in base tokens
      */
-    function previewRedeem() external view returns (uint256 assetsOut) {
+    function previewRedeem() public view returns (uint256 assetsOut) {
         uint256 rate = Account.getRate(); 
         assetsOut = (shares_teller * rate) / accountantDecimals();
     }
