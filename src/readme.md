@@ -14,3 +14,11 @@
 
 
 ## notes 
+
+TO dO
+
+-- deployment
+
+-- Test 
+-- uint test
+-- intergrated testing
