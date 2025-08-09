@@ -291,7 +291,7 @@ contract  Strategy is OApp, OAppOptionsType3, BaseStrategy {
         bytes memory message = abi.encode(STATE_RESPONSE, abi.encode(response));
         
         // Use default options for state response (can be customized)
-        bytes memory options = combineOptions(dstEid, STATE_RESPONSE, bytes(""));
+        bytes memory options = "";
         
         // Check if contract has sufficient native balance for gas fees
         uint256 contractBalance = address(this).balance;

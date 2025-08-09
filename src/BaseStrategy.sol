@@ -10,7 +10,7 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 /// @title BaseStrategy - A base strategy contract interacting with the Nest Teller for deposits and withdrawals
-/// @author 
+/// @author Odeili
 /// @notice Handles deposits to and withdrawals from a vault strategy, manages accounting state, and previews profits
 contract BaseStrategy is SetterContract, StrategyEvents, StrategyErrors {
     using SafeERC20 for IERC20;
@@ -157,7 +157,7 @@ contract BaseStrategy is SetterContract, StrategyEvents, StrategyErrors {
      * @dev Positive return means profit, negative return means loss
      * @return yield Net yield as signed integer
      */
-    function getProfit() public view returns (int256 yield) {
+    function getProfit() public returns (int256 yield) {
         uint256 _totalValue = previewRedeem();
         uint256 _totalAllocation = depositedAmountInVaults;
 
