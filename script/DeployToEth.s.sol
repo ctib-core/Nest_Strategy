@@ -61,8 +61,8 @@ contract DeployToETH is Script {
 
     
     function logAddress() internal {
-        console.log("PERMISSOONMANAGER ADDRESS WAS DEPLOYED AT", permissions);
-        console.log("STRATEGY ADDRESS WAS DEPLOYED AT", strategy);
-        console.log("FACTORY ADDRESS WAS DEPLOYED", factory);
+        console.log("PERMISSOONMANAGER ADDRESS WAS DEPLOYED AT", address(permission));
+        console.log("STRATEGY ADDRESS WAS DEPLOYED AT", address(strategy));
+        console.log("FACTORY ADDRESS WAS DEPLOYED", address(factory) );
     }
 }

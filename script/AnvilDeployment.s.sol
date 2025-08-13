@@ -7,7 +7,7 @@ import {StrategyFactory} from "../src/StategyFactory.sol";
 import {PermissionManager} from "../src/PermissionManager.sol";
 import {IPermissionManager} from "../src/Interface/IPermissionManager.sol";
 
-contract DeployToETH is Script {
+contract DeployToAnvil is Script {
     Strategy public strategy;
     StrategyFactory public factory;
     PermissionManager public permission;
@@ -60,8 +60,8 @@ contract DeployToETH is Script {
     }
 
     function logAddress() internal {
-        console.log("PERMISSOONMANAGER ADDRESS WAS DEPLOYED AT", permissions);
-        console.log("STRATEGY ADDRESS WAS DEPLOYED AT", strategy);
-        console.log("FACTORY ADDRESS WAS DEPLOYED", factory);
+        console.log("PERMISSOONMANAGER ADDRESS WAS DEPLOYED AT", address(permission));
+        console.log("STRATEGY ADDRESS WAS DEPLOYED AT", address(strategy));
+        console.log("FACTORY ADDRESS WAS DEPLOYED", address(factory) );
     }
 }
