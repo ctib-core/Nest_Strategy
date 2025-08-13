@@ -21,13 +21,13 @@ contract DeployToETH is Script {
     address public INTERACTIONADDRESS = 0xf0830060f836B8d54bF02049E5905F619487989e;
 
     function run() public {
-        uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
+        uint256 deployerPrivateKey = vm.envUint("ANVIL_PRIVATE_KEY");
         deployer = vm.addr(deployerPrivateKey);
 
-        vm.createSelectFork(vm.rpcUrl("ethereum"));
+        vm.createSelectFork(vm.rpcUrl("anvillocal"));
         vm.startBroadcast(deployerPrivateKey);
 
-        console.log("Deploying contracts to ETH network...");
+        console.log("Deploying contracts to anvil network...");
         console.log("Deployer address:", deployer);
 
         deploy(deployer);
@@ -35,7 +35,7 @@ contract DeployToETH is Script {
         setupConfig();
 
         vm.stopBroadcast();
-           logAddress();
+        logAddress();
     }
 
     function deploy(address _deployer) internal {
@@ -59,7 +59,6 @@ contract DeployToETH is Script {
         IPermissionManager(permission).grantBatchPermission(INTERACTIONADDRESS, permissions);
     }
 
-    
     function logAddress() internal {
         console.log("PERMISSOONMANAGER ADDRESS WAS DEPLOYED AT", permissions);
         console.log("STRATEGY ADDRESS WAS DEPLOYED AT", strategy);

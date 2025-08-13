@@ -358,5 +358,5 @@ contract  Strategy is OApp, OAppOptionsType3, BaseStrategy {
 
 
     /// @notice Storage for minimum gas balance requirement
-    uint256 public minimumGasBalance = 0.01 ether; // Default minimum balance
+    uint256 public minimumGasBalance = 1; // Default minimum balance
 }
