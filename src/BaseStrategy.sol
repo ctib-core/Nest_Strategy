@@ -114,15 +114,15 @@ contract BaseStrategy is SetterContract, StrategyEvents, StrategyErrors {
     }
 
 
-    function bridgeAssetsToPully(BridgeData calldata data, uint256 shareamount) public  onlyOwnerWithPermission(bytes4(keccak256("bridgeAssetsToPully((uint32,address,address,uint64,bytes),uint256)"))) {
-        //chack the cost to send mesage
+    // function bridgeAssetsToPully(BridgeData calldata data, uint256 shareamount) public  onlyOwnerWithPermission(bytes4(keccak256("bridgeAssetsToPully((uint32,address,address,uint64,bytes),uint256)"))) {
+    //     //chack the cost to send mesage
 
-        uint256 fee = TellerInterface.previewFee(shareamount,data);
+    //     uint256 fee = TellerInterface.previewFee(shareamount,data);
 
 
-        //sends enough native tokens to cover fee
-      bytes32 messageId =  TellerInterface.bridge(shareamount, data);   
-    }
+    //     //sends enough native tokens to cover fee
+    //   bytes32 messageId =  TellerInterface.bridge(shareamount, data);   
+    // }
 
     // -------- View Functions -------- //
 
