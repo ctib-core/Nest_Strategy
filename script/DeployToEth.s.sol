@@ -32,10 +32,14 @@ contract DeployToETH is Script {
 
         deploy(deployer);
         grantPermission(deployer);
-        setupConfig();
+  
 
         vm.stopBroadcast();
+
+        // vm.prank(deployer);
+        //   setupConfig();
            logAddress();
+
     }
 
     function deploy(address _deployer) internal {
@@ -49,7 +53,7 @@ contract DeployToETH is Script {
     }
 
     function grantPermission(address _deployer) internal {
-        bytes4[] memory permissions = new bytes4[](2);
+        bytes4[] memory permissions = new bytes4[](3);
 
         permissions[0] = factory.createNewStrategy.selector; 
         permissions[1] = strategy.withdrawNative.selector;  
