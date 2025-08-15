@@ -69,3 +69,7 @@ deploy-local:
 deploy-eth:
 	@forge script script/DeployToEth.s.sol:DeployToETH --rpc-url $(ETHEREUM_URL) --private-key $(PRIVATE_KEY) --broadcast -vvvv
 
+deploy-eth:
+	@forge script script/DeployToEth.s.sol:DeployToETH --rpc-url $(ETHEREUM_TESTNET) --private-key $(PRIVATE_KEY) --broadcast -vvvv
+
+

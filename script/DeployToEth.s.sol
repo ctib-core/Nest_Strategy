@@ -24,7 +24,7 @@ contract DeployToETH is Script {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         deployer = vm.addr(deployerPrivateKey);
 
-        vm.createSelectFork(vm.rpcUrl("ethereum"));
+        vm.createSelectFork(vm.rpcUrl("ethereumtestnet"));
         vm.startBroadcast(deployerPrivateKey);
 
         console.log("Deploying contracts to ETH network...");

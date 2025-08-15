@@ -22,6 +22,7 @@ sonicchain = "${SONIC_URL}"
 hedera = "${HEDERA_URL}"
 avalanche = "${AVALANCHE_URL}"
 anvillocal = "${ANVIL_URL}"
+ethereumtestnet = "${ETHEREUM_TESTNET}"
 
 
 [etherscan]
